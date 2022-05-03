@@ -1,19 +1,15 @@
 n = int(input())
 l = list(map(int, input().split()))
-d = {}
+l_ = [0] * 100001
 ans = 0
 for i in range(n):
-    try:
-        d[l[i]] += 1
-    except:
-        d[l[i]] = 1
-l = list(d.keys())
-for i in range(len(l)):
-    for j in range(i + 1, len(l)):
-        if l[i] + l[j] == 100000:
-            ans += d[l[i]] * d[l[j]]
-            d[i] = 0
-            d[j] = 0
-if d[50000] >= 2:
-    ans += d[50000] // 2
+    l_[l[i]] += 1
+for i in range(100001):
+    if i == 50000:
+        ans += (l_[i] * (l_[i] - 1)) // 2
+    else:
+        if l_[i] != 0:
+            ans += l_[i] * l_[100000 - i]
+            l_[100000 - i] = 0
+
 print(ans)
